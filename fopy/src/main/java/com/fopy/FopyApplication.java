@@ -9,5 +9,4 @@ public class FopyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FopyApplication.class, args);
 	}
-
 }
