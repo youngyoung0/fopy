@@ -4,16 +4,21 @@ import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.Translate.TranslateOption;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class Googletrans {
 
+    private static String googleApi;
+
+    @Value("${google.api}")
+    public void setGoogleApi(String requestApi){
+        googleApi = requestApi;
+    }
+
     public void translation(String text){
-        // Instantiates a client
-        Translate translate = TranslateOptions.getDefaultInstance().getService();
-
-
-        // Translates some text into Russian
+        Translate translate = TranslateOptions.newBuilder().setApiKey(googleApi).build().getService();
         Translation translation =
                 translate.translate(
                         text,
@@ -23,5 +28,4 @@ public class Googletrans {
         System.out.printf("Text: %s%n", text);
         System.out.printf("Translation: %s%n", translation.getTranslatedText());
     }
-
 }
